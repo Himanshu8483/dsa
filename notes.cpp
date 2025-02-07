@@ -191,7 +191,7 @@ using namespace std;
 // Function to partition the array
 int part(int arr[], int low, int high) {
     int pivot = arr[low]; // Choosing first element as pivot
-    int i = low + 1;
+    int i = low + 1;    
     int j = high;
 
     do {
