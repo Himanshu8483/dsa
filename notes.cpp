@@ -234,7 +234,10 @@ void selectionSort(int arr[], int n) {
                 minIndex = j; // Update minIndex if a smaller element is found
             }
         }
-        swap(arr[i], arr[minIndex]); // Swap the found minimum element with the first element
+         // Swap only if a smaller element is found
+        if (minIndex != i) {
+            swap(arr[i], arr[minIndex]);
+        }
     }
 }
 
