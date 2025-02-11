@@ -318,42 +318,45 @@ Code:
 // Function to partition the array (Lomuto's Partitioning)
 int partition(int arr[], int low, int high) {
     int pivot = arr[high]; // Choose the last element as pivot
-    int i = low - 1; // Pointer for smaller element
+    int i = low - 1; // We use low - 1 so i correctly tracks where smaller elements should go before swapping. This guarantees the pivot ends up in the right place! 🎯🚀
 
     for (int j = low; j < high; j++) {
-        if (arr[j] < pivot) { // If current element is smaller than pivot
+        if (arr[j] <= pivot) { // If current element is smaller than pivot
             i++;
             swap(arr[i], arr[j]); // Swap elements
         }
     }
-    swap(arr[i + 1], arr[high]); // Move pivot to correct position
-    return i + 1; // Return partition index
+    i++;
+    swap(arr[i], arr[high]); // Move pivot to correct position
+    return i; // Return partition index
 }
 // or ===============
 /*
-// Function to partition the array (Hoare's Partitioning)
+// Function to partition the array (Hoare's Partitioning) by Vikash Sir)
+// Function to partition the array
 int partition(int arr[], int low, int high) {
-    int pivot = arr[low]; // Choose the first element as pivot
-    int i = low - 1, j = high + 1; // Correct initialization for Hoare’s scheme
+    int pivot = arr[low]; // Choosing first element as pivot
+    int i = low + 1;    
+    int j = high;
 
-    while (true) {
-        // Move `i` to the right until an element >= pivot is found
-        do {
+    do {
+        while (arr[i] <= pivot) { // Move i to the right until finding a larger element
             i++;
-        } while (arr[i] < pivot);
-
-        // Move `j` to the left until an element < pivot is found
-        do {
+        }
+        while (arr[j] > pivot) { // Move j to the left until finding a smaller element
             j--;
-        } while (arr[j] > pivot);
+        }
+        if (i < j) { // Swap elements to keep smaller elements on left and larger on right
+            swap(arr[i], arr[j]);
+        }
+    } while (i < j);
 
-        // If `i` and `j` cross, return partition index
-        if (i >= j) return j;
+    // Swap pivot with the correct position
+    swap(arr[low], arr[j]);
 
-        // Swap elements to maintain partitioning condition
-        swap(arr[i], arr[j]);
-    }
+    return j; // ✅ We use return j; to get the correct pivot position so that Quick Sort can divide and sort the array properly.
 }
+
 */
 // Hoare’s Partitioning: Uses two pointers moving toward each other. Fewer swaps (better performance). Best for large datasets.
 // Lomuto’s Partitioning: Moves elements smaller than pivot to one side. More swaps (less efficient). Simpler to understand & implement.
@@ -399,7 +402,7 @@ int main() {
     cout << "Sorted array using Merge Sort: ";
     printArray(arr4, n);
     
-    int arr5[] = {64, 34, 25, 12, 22, 11, 90};
+    int arr5[] = {64, 34, 25, 11, 22, 11, 11};
     quickSort(arr5, 0, n - 1);
     cout << "Sorted array using Quick Sort: ";
     printArray(arr5, n);
