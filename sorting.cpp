@@ -315,6 +315,7 @@ In-Place: ✅ (works in the same array).
 
 Code:
 */
+/*
 // Function to partition the array (Lomuto's Partitioning)
 int partition(int arr[], int low, int high) {
     int pivot = arr[high]; // Choose the last element as pivot
@@ -330,8 +331,9 @@ int partition(int arr[], int low, int high) {
     swap(arr[i], arr[high]); // Move pivot to correct position
     return i; // Return partition index
 }
+*/
 // or ===============
-/*
+
 // Function to partition the array (Hoare's Partitioning) by Vikash Sir)
 // Function to partition the array
 int partition(int arr[], int low, int high) {
@@ -357,7 +359,6 @@ int partition(int arr[], int low, int high) {
     return j; // ✅ We use return j; to get the correct pivot position so that Quick Sort can divide and sort the array properly.
 }
 
-*/
 // Hoare’s Partitioning: Uses two pointers moving toward each other. Fewer swaps (better performance). Best for large datasets.
 // Lomuto’s Partitioning: Moves elements smaller than pivot to one side. More swaps (less efficient). Simpler to understand & implement.
 
