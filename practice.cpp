@@ -1,59 +1,41 @@
-// ❌❌❌❌❌❌❌❌❌❌❌❌❌📐📐📐📐📐📐📐🔋🔋🔋🔋
-#include <iostream> 
+#include <iostream>
 using namespace std;
-
-// Function to partition the array
-int part(int arr[], int low, int high) {
-    int pivot = arr[low]; // Choosing first element as pivot
-    int i = low + 1;    
-    int j = high;
-
-    do {
-        while (arr[i] <= pivot) { // Move i to the right until finding a larger element
-            i++;
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) { 
+        bool swapped = false;
+        
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) { 
+                swap(arr[j], arr[j + 1]);
+                swapped = true; 
+            }
         }
-        while (arr[j] > pivot) { // Move j to the left until finding a smaller element
-            j--;
-        }
-        if (i < j) { // Swap elements to keep smaller elements on left and larger on right
-            swap(arr[i], arr[j]);
-        }
-    } while (i < j);
-
-    // Swap pivot with the correct position
-    swap(arr[low], arr[j]);
-
-    return j; // ✅ We use return j; to get the correct pivot position so that Quick Sort can divide and sort the array properly.
-}
-
-// Function to perform Quick Sort
-void qksrt(int arr[], int low, int high) {
-    if (low < high) {
-        int pv = part(arr, low, high); // Get pivot index
-        qksrt(arr, low, pv - 1);  // Sort left part
-        qksrt(arr, pv + 1, high); // Sort right part
+        
+        if (!swapped) break;
     }
 }
+void printArray(int arr[], int n){
+    for(int i=0; i<n; i++){
+        cout<<arr[i]<<" ";
 
-// Function to print array
-void printArray(int arr[], int size) {
-    for (int i = 0; i < size; i++) {
-        cout << arr[i] << "\t";
     }
-    cout << endl;
-}                     
-// Main function
-int main() {
-    int arr[] = {1, 3, 1, 2, 1, 2, 1};
-    int size = sizeof(arr) / sizeof(arr[0]);
+    cout<<endl;
+}
+int main(){
+    // int arr[]={};
+    // int n=sizeof(arr)/sizeof(arr[0]);
+    cout<<"enter how many elements = ";
+    int n;
+    cin>>n;
+    int arr[n];
+    cout<<"enter values = ";
+    for(int i=0; i<n;i++){
+        cin>>arr[i];
+    }
+    cout<<"Original Array";
+    printArray(arr, n);
 
-    cout << "Original array:\n";
-    printArray(arr, size);
-
-    qksrt(arr, 0, size - 1);
-
-    cout << "After Quick Sort:\n"; 
-    printArray(arr, size);
-
-    return 0;
+    bubbleSort(arr, n);
+    cout<<"Bubble Sorting";
+    printArray(arr, n);
 }
