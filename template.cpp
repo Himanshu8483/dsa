@@ -84,6 +84,23 @@
 //     cout<<obj.show();
 // }
 
+// // 2 data types class 
+// #include <iostream>
+// using namespace std;
+// template<typename v1, typename v2>
+// class cybrom {
+//     public: 
+//     void show(v1 t1, v2 t2){
+//         cout<<t1+t2;
+//     }
+// };
+
+// int main(){
+//     cybrom<int, double>obj;         // allocate run time memory type
+//     obj.show(3, 4.4);
+// }
+
+// 25 feb 
 // 2 data types class 
 #include <iostream>
 using namespace std;
