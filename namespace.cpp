@@ -53,6 +53,7 @@ int main() {
 // Namespaces: A way to organize code and prevent name conflicts.
 // Nested Namespaces: One namespace inside another.
 // Functions: Defining functions inside namespaces.
+// Nested namespaces allow better organization when dealing with large projects.
 
 #include <iostream>  // Include standard input-output library
 using namespace std; // Allow direct use of standard namespace functions like cout
@@ -79,4 +80,3 @@ int main() {
     
     return 0;
 }
-// Note: Nested namespaces allow better organization when dealing with large projects.
