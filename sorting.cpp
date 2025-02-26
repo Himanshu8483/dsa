@@ -378,6 +378,15 @@ void printArray(int arr[], int n) {
 }
 
 int main() {
+    // // Dynamic Input :
+    int n;
+    // cout<<"Enter Size of Array";
+    // cin>>n;
+    // cout<<"Enter Values";
+    // int arr[n];
+    // for(int i=0; i<n; i++){
+    //     cin>>arr[i];
+    // }
     int arr[] = {64, 34, 25, 12, 22, 11, 90};
     int n = sizeof(arr) / sizeof(arr[0]);
     
