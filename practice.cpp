@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // // pair 
 // #include<iostream>
 // using namespace std;
@@ -35,3 +36,6 @@ int main(){
     cout<<"name= "<<get<1>(student)<<"\n";
     cout<<"marks= "<<get<2>(student)<<"\n";
 }
+=======
+👉👉👉👉🚨✅✅✅✅✅✅
+>>>>>>> e99a80b7bd27c56e3654cbd692933ee884fe62f2
