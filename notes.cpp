@@ -131,9 +131,9 @@ int main() {
 
 ---
 
-## **5. Array Template (STL Array)**
+## **5. Array in C++ (STL Array)**
 
-C++ STL provides an array container with built-in functions.
+C++ STL provides an `array` container with built-in functions.
 
 ```cpp
 #include <iostream>
@@ -143,7 +143,7 @@ using namespace std;
 
 int main() {
     array<int, 6> arr = {34, 5, 12, 87, 5, 3};
-      sort(arr.begin(), arr.end());
+    sort(arr.begin(), arr.end());
 
     cout << "Min = " << arr.front() << "\n";
     cout << "Max = " << arr.back() << "\n";
@@ -204,7 +204,7 @@ int main() {
 }
 ```
 
-### **Removing Last Element (**\`\`**\*\*\*\*)**
+### **Removing Last Element (****`pop_back()`****)**
 
 ```cpp
 vec.pop_back();
@@ -274,12 +274,13 @@ int main() {
             cout << num << "\t";
         }
         cout << "\n";
-    // or
+        // or
       for(int i=0;i<v1.size();i++){
         for(int j=0; j<v1[i].size();j++){
             cout<<v1[i][j]<<"\t";
         }
         cout<<"\n";
+
     }
 }
 ```
