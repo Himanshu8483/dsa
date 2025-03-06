@@ -97,7 +97,7 @@
 //     cout<<sum1+sum2;
 // }
 
-// // q3 
+// // q3 :find greater
 // #include<iostream>
 // using namespace std;
 // #include<vector>
@@ -123,24 +123,46 @@
 //     }
 // }
 
-// q4 for not equal vector
+// // q4: sum for not equal vector size(also can carry forward)
+// #include<iostream>
+// using namespace std;
+// #include<vector>
+// int main(){
+//     vector<int>v1{3,1,2,5};
+//     vector<int>v2{ 7,2,1,5,6};
+//     int x=0;
+//     int y=0;
+//     for(int i=0; i<v1.size();i++){
+//         x=x*10+v1[i];
+//     }
+//     for(int j=0; j<v2.size();j++){
+//         y=y*10+v2[j];
+//     }
+//     cout<<"result="<<x+y;
+// }
+
+// 5th: remove duplicate and print in ascending order 
 #include<iostream>
 using namespace std;
 #include<vector>
+#include<algorithm>
 int main(){
-    vector<int>v1{3,1,2,5};
-    vector<int>v2{ 7,2,4};
-    vector<int>v3;
-
-    for(int i=0; i<v1.size();i++){
-        int sum =v1[i]+v2[i];
-        v3.push_back(sum);
+    vector<int>v{12,12,2,4,5,6,2,12,8};
+    sort(v.begin(), v.end());
+    int x=1;
+    for(int i=0; i<v.size(); i++){
+        cout<<v[i]<<" ";
     }
-    for(auto p:v3){
-        cout<<p<<"\t";
+    cout<<endl;
+    for(int a=1;a<v.size();a++){
+        if(v[x-1]!=v[a]){
+            v[x]=v[a];
+            x++;
+        }
+    }
+    cout<<"\n second minimum value = "<<*(v.begin()+1)<<endl<<v[1]<<endl;   
+    for(int i=0; i<x; i++){
+        cout<<v[i]<<" ";
     }
 }
-
-// 5th: remove duplicate and print in ascending order 
-
 // 6th: Second Minimum value 

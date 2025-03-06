@@ -1,1 +1,2 @@
-position
+    cout<<st.top();
+    st.pop();
