@@ -712,10 +712,20 @@ ________________________________________
 ✔ Used in recursion, backtracking, and undo operations
 🚀 Master stacks, and you'll be ready to solve many coding problems efficiently! 💪
 
+Example use of Stack (Basic Used in Compiler to Fetch and give error)
 
+Balanced Parentheses Using Stack in C++
+Concept Used:
+Stack Data Structure (LIFO - Last In, First Out)
+Conditions to check balance:
+Every opening bracket {, [, ( must have a corresponding closing bracket }, ], ).
+The brackets must be nested correctly.
 
-Example for Opening and Closing Bracket Sequence wise (Used in Compiler to Fetch):
-
+Explanation:
+#include <stack> → Used to implement stack.
+using namespace std; → Avoids writing std:: every time.
+ 
+// By Google 
 #include <iostream>       // For input/output operations
 #include <stack>          // For using stack data structure
 using namespace std;
@@ -727,21 +737,20 @@ bool isValid(string s) {
         if (ch == '(' || ch == '{' || ch == '[') {
             st.push(ch);  // Push opening brackets onto stack
         } else {  
-            if (st.empty()) return false;  // If stack is empty, no matching opening bracket
+            if (st.empty()) return false;  // No matching opening bracket
             
-            char top = st.top();  // Get the top element of stack
-            st.pop();  // Remove the matched opening bracket
-
-            // Check if the bracket pairs are matching
-            if ((ch == ')' && top != '(') || 
-                (ch == '}' && top != '{') || 
-                (ch == ']' && top != '[')) {
+            // Directly check if the top element is matching
+            if ((ch == ')' && st.top() != '(') || 
+                (ch == '}' && st.top() != '{') || 
+                (ch == ']' && st.top() != '[')) {
                 return false;
             }
+            st.pop();  // Remove matched bracket
         }
     }
     return st.empty();  // If stack is empty, the string is valid
 }
+
 
 int main() {
     string s;
@@ -756,7 +765,65 @@ int main() {
 
     return 0;
 }
+    
+// or by Vikash Sir 
+#include <iostream>
+using namespace std;
+#include<stack>
 
+bool valid(string s) {
+    stack<char> st;
+    bool r = true;
+    
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] == '{' || s[i] == '[' || s[i] == '(') {
+            st.push(s[i]); // Push opening brackets to stack
+        }
+        else if (s[i] == '}') {
+            if (!st.empty() && st.top() == '{') {
+                st.pop(); // Correct match, remove from stack
+            } else {
+                r = false;
+                break; // Mismatch found, stop checking
+            }
+        }
+        else if (s[i] == ')') {
+            if (!st.empty() && st.top() == '(') {
+                st.pop();
+            } else {
+                r = false;
+                break;
+            }
+        }
+        else if (s[i] == ']') {
+            if (!st.empty() && st.top() == '[') {
+                st.pop();
+            } else {
+                r = false;
+                break;
+            }
+        }
+    }
+
+    // Move return statement outside the loop
+    return st.empty() && r;
+    // or 
+    if(!st.empty()){
+        return false;
+    }
+    else{
+        return r;
+    }
+}
+int main() {
+    string s = "{([])}"; // Input string
+    if (valid(s)) {
+        cout << "valid";
+    } else {
+        cout << "invalid";
+    }
+}
+    
 Understanding #include <bits/stdc++.h> in C++
 What is #include <bits/stdc++.h>?
 •	It is a single header file that includes all standard C++ libraries (like iostream, vector, map, algorithm, etc.).

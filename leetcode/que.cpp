@@ -861,3 +861,177 @@ Using set (Extra Space)	O(n log n)	O(n)	❌	Not in-place, extra memory used
 Counting Unique Elements	O(n)	O(1)	✅	Alternative optimal approach
 ✅ Best Approach: Two Pointers (O(n)) since it efficiently modifies nums in-place.
 🚀 Avoid brute force and set methods due to inefficiency.
+
+LeetCode 11: Container With Most Water
+Problem Statement
+You are given an array height where height[i] represents the height of a vertical line at index i. Find two lines that together with the x-axis form a container, such that the container holds the maximum amount of water.
+
+Example
+Input:
+cpp
+Copy
+Edit
+height = [1,8,6,2,5,4,8,3,7]
+Output:
+cpp
+Copy
+Edit
+49
+Explanation:
+The best choice is height[1] = 8 and height[8] = 7, forming a container with width 8 - 1 = 7 and height min(8, 7) = 7.
+So, the area is 7 × 7 = 49.
+Approaches to Solve the Problem
+1. Brute Force Approach (Checking All Pairs)
+Idea:
+Check all possible pairs (i, j), calculate the water container area for each pair, and return the maximum.
+Formula:
+Area
+=
+min
+⁡
+(
+height
+[
+𝑖
+]
+,
+height
+[
+𝑗
+]
+)
+×
+(
+𝑗
+−
+𝑖
+)
+Area=min(height[i],height[j])×(j−i)
+Time Complexity: 
+𝑂
+(
+𝑛
+2
+)
+O(n 
+2
+ ) → Since we check every pair.
+Space Complexity: 
+𝑂
+(
+1
+)
+O(1) → No extra space used.
+Code (Brute Force)
+cpp
+Copy
+Edit
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int maxAreaBruteForce(vector<int>& height) {
+    int max_area = 0;
+    int n = height.size();
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            int area = min(height[i], height[j]) * (j - i);
+            max_area = max(max_area, area);
+        }
+    }
+    
+    return max_area;
+}
+
+int main() {
+    vector<int> height = {1,8,6,2,5,4,8,3,7};
+    cout << "Max Water (Brute Force): " << maxAreaBruteForce(height) << endl;
+    return 0;
+}
+2. Two Pointers Approach (Optimal)
+Idea:
+Start with two pointers, one at the left (i = 0) and one at the right (j = n-1).
+
+Calculate the area and move the shorter height pointer inward to potentially get a larger height.
+
+Why move the smaller height?
+Because moving the larger height does not help in increasing the minimum height, but moving the smaller one may lead to a better result.
+
+Time Complexity: 
+𝑂
+(
+𝑛
+)
+O(n) → We traverse the array once.
+
+Space Complexity: 
+𝑂
+(
+1
+)
+O(1) → No extra space used.
+
+Code (Two Pointers)
+cpp
+Copy
+Edit
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int maxAreaTwoPointer(vector<int>& height) {
+    int max_area = 0;
+    int left = 0, right = height.size() - 1;
+
+    while (left < right) {
+        int area = min(height[left], height[right]) * (right - left);
+        max_area = max(max_area, area);
+
+        // Move the pointer with the smaller height
+        if (height[left] < height[right])
+            left++;
+        else
+            right--;
+    }
+    
+    return max_area;
+}
+
+int main() {
+    vector<int> height = {1,8,6,2,5,4,8,3,7};
+    cout << "Max Water (Two Pointers): " << maxAreaTwoPointer(height) << endl;
+    return 0;
+}
+Comparison of Approaches
+Approach	Time Complexity	Space Complexity	Efficiency
+Brute Force (Checking All Pairs)	
+𝑂
+(
+𝑛
+2
+)
+O(n 
+2
+ )	
+𝑂
+(
+1
+)
+O(1)	Slow for large inputs
+Two Pointers (Optimal)	
+𝑂
+(
+𝑛
+)
+O(n)	
+𝑂
+(
+1
+)
+O(1)	Fast and best for large inputs
+Final Conclusion
+The Brute Force approach is simple but inefficient for large inputs.
+The Two Pointers approach is the optimal solution as it runs in O(n) time with minimal space usage.
