@@ -1,41 +1,145 @@
-// <<<<<<< HEAD
-// // // pair 
-// // #include<iostream>
-// // using namespace std;
-// // #include<vector>
-// // int main(){
-// //     // vector<int,int>p1{101,22};
-// //     // p1= make_pair(102,"12");
-// //     // cout<<p1.first;
-
-// //     vector<pair<int, string>>v;
-// //     int roll, n;
-// //     string name;
-// //     cout<<"enter how many records\n";
-// //     cin>>n;     // 5
-// //     for(int i = 1; i<=n; i++){  
-// //         cout<<"Enter roll no\n" ;
-// //         cin>>roll;
-// //         cout<<"enter name\n :";
-// //         v.push_back(make_pair(roll,name));
-// //     }
-// //     cout<<"Results are\n";
-// //     for(int i=0; i<v.size(); i++){
-// //         cout<<v[i].first<<":"<<v[i].second<<"\n";
-// //     }
-// // }
-
-// // tuple 
+// // stack 
 // #include<iostream>
 // using namespace std;
-// #include<vector>
-// #include<tuple>
-// int main(){
-//     tuple<int, string,int> student{101, "joy", 86};
-//     cout<<"roll no= "<<get<0>(student)<<"\n";
-//     cout<<"name= "<<get<1>(student)<<"\n";
-//     cout<<"marks= "<<get<2>(student)<<"\n";
+// int valid(string s){
+// if(s.size()>4){
+//     return true;           // or return true
 // }
-// =======
-// 👉👉👉👉🚨✅✅✅✅✅✅
-// >>>>>>> e99a80b7bd27c56e3654cbd692933ee884fe62f2
+// else{
+//     return false;
+// }
+// }
+// int main(){
+//     string s;
+//     cout<<"enter name";
+//     cin>>s;
+//     if(valid(s)){
+//         cout<<"YES";
+//     }
+//     else{
+//         cout<<"No";
+//     }
+    
+// }
+
+// #include<iostream>
+// using namespace std;
+// #include<bits/stdc++.h>     // for including all files in one include, memory use extra so waste of memory because of taking all include files
+// bool valid(string s){
+
+// }
+// int main(){
+//     string s;
+//     cout<<"Enter Combination of Bracket";
+// // }
+
+// // 8 mar 
+
+// #include<iostream>
+// using namespace std;
+// #include<stack>
+// bool valid(string s){
+//     stack<char>st;
+//     bool r =true;
+//     for(int i = 0; i<s.size(); i++){
+//         if(s[i]=='[' || s[i]=='{' || s[i]=='(' ){
+//             st.push(s[i]);
+//         }
+//         else if(s[i]==']'){
+//             if(!st.empty() && st.top()=='['){
+//                 st.pop();
+//             }
+//             else{
+//                 r=false;
+//                 break;
+//             }
+//         }
+//         else if(s[i]=='}'){
+//             if(!st.empty() && st.top()=='{'){
+//                 st.pop();
+//             }
+//             else{
+//                 r=false;
+//                 break;
+//             }
+//         }
+//         else if(s[i]==')'){
+//             if(!st.empty() && st.top()=='('){
+//                 st.pop();
+//             }
+//             else{
+//                 r=false;
+//                 break;
+//             }
+//         }
+//     }
+//     if(!st.empty()){
+//         return false;
+//     }
+//     else{
+//         return r;
+//     }
+
+// }
+// int main(){
+//     string s="{([])}";
+//     if(valid(s)){
+//         cout<<"valid";
+//     }
+//     else{
+//         cout<<"invalid";
+//     }
+// }
+
+#include <iostream>
+using namespace std;
+#include<stack>
+bool valid(string s){
+    stack<char>st;
+    bool r = true;
+    for(int i=0; i<s.size(); i++){
+        if(s[i]=='{' || s[i]=='{' || s[i]=='('){
+            st.push(s[i]);
+        }
+        else if(s[i]=='}'){
+            if(!st.empty() && st.top()=='{'){
+                st.pop();
+            }else{
+                r=false;
+                break;
+            } 
+        }
+        else if(s[i]==')'){
+            if(!st.empty() && st.top()=='('){
+                st.pop();
+            }else{
+                r=false;
+                break;
+            } 
+        }
+        else if(s[i]==']'){
+            if(!st.empty() && st.top()=='['){
+                st.pop();
+            }else{
+                r=false;
+                break;
+            } 
+        }
+        if(!st.empty()){
+            return false;
+        }
+        else{
+            return r;
+        }
+    
+    }
+}
+    int main(){
+        string s="{([])}";
+        if(valid(s)){
+            cout<<"valid";
+        }
+        else{
+            cout<<"invalid";
+        }
+    }
