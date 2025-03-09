@@ -1035,3 +1035,369 @@ O(1)	Fast and best for large inputs
 Final Conclusion
 The Brute Force approach is simple but inefficient for large inputs.
 The Two Pointers approach is the optimal solution as it runs in O(n) time with minimal space usage.
+
+LeetCode 238. Product of Array Except Self is a popular array manipulation and prefix product problem. Let's break it down step by step and cover all possible approaches in a way that's easy to store and understand in notes.
+
+Problem Statement
+Given an array nums, return an array answer such that:
+
+answer
+[
+𝑖
+]
+=
+product of all elements in 
+𝑛
+𝑢
+𝑚
+𝑠
+ except 
+𝑛
+𝑢
+𝑚
+𝑠
+[
+𝑖
+]
+answer[i]=product of all elements in nums except nums[i]
+Constraints:
+
+You must not use division.
+The solution must run in O(n) time complexity.
+Example:
+Input:
+cpp
+Copy
+Edit
+nums = [1, 2, 3, 4]
+Output:
+cpp
+Copy
+Edit
+answer = [24, 12, 8, 6]
+Explanation:
+answer[0] = 2 * 3 * 4 = 24
+answer[1] = 1 * 3 * 4 = 12
+answer[2] = 1 * 2 * 4 = 8
+answer[3] = 1 * 2 * 3 = 6
+Approach 1: Brute Force (O(n²)) ❌ (Not Efficient)
+Idea:
+For each index i, calculate the product of all elements except nums[i].
+Use a nested loop, which results in O(n²) time complexity (too slow!).
+Code:
+cpp
+Copy
+Edit
+vector<int> productExceptSelf(vector<int>& nums) {
+    int n = nums.size();
+    vector<int> answer(n, 1);
+
+    for (int i = 0; i < n; i++) {
+        int product = 1;
+        for (int j = 0; j < n; j++) {
+            if (i != j) {
+                product *= nums[j];
+            }
+        }
+        answer[i] = product;
+    }
+    return answer;
+}
+Why Not Use This?
+Takes O(n²) time → Too slow for large inputs.
+Approach 2: Prefix & Suffix Products (O(n), Extra Space) ✅
+Idea:
+Use two auxiliary arrays, prefix[] and suffix[], to store:
+prefix[i] = Product of all elements before i.
+suffix[i] = Product of all elements after i.
+Compute answer[i] = prefix[i] * suffix[i].
+Steps:
+Compute prefix[] array (Left to Right).
+Compute suffix[] array (Right to Left).
+Multiply prefix[i] * suffix[i] to get the result.
+Code:
+cpp
+Copy
+Edit
+vector<int> productExceptSelf(vector<int>& nums) {
+    int n = nums.size();
+    vector<int> prefix(n, 1), suffix(n, 1), answer(n, 1);
+
+    // Compute prefix products
+    for (int i = 1; i < n; i++) {
+        prefix[i] = prefix[i - 1] * nums[i - 1];
+    }
+
+    // Compute suffix products
+    for (int i = n - 2; i >= 0; i--) {
+        suffix[i] = suffix[i + 1] * nums[i + 1];
+    }
+
+    // Compute final answer by multiplying prefix and suffix
+    for (int i = 0; i < n; i++) {
+        answer[i] = prefix[i] * suffix[i];
+    }
+
+    return answer;
+}
+Complexity Analysis:
+Time Complexity: O(n) (Single pass for prefix, suffix, and final computation).
+Space Complexity: O(n) (Extra space for prefix[] and suffix[]).
+Approach 3: Optimized (O(n), Constant Space) ✅🔥
+Idea:
+Instead of using prefix[] and suffix[] extra arrays, store the prefix product in answer[] and compute suffix on the fly.
+Steps:
+First pass (Left to Right) → Store prefix product in answer[].
+Second pass (Right to Left) → Multiply answer[i] by the suffix product.
+Code:
+cpp
+Copy
+Edit
+vector<int> productExceptSelf(vector<int>& nums) {
+    int n = nums.size();
+    vector<int> answer(n, 1);
+    
+    // Compute prefix products directly in answer[]
+    int prefix = 1;
+    for (int i = 0; i < n; i++) {
+        answer[i] = prefix;
+        prefix *= nums[i];  // Update prefix for next index
+    }
+
+    // Compute suffix product on the fly and update answer[]
+    int suffix = 1;
+    for (int i = n - 1; i >= 0; i--) {
+        answer[i] *= suffix;
+        suffix *= nums[i];  // Update suffix for next index
+    }
+
+    return answer;
+}
+Complexity Analysis:
+Time Complexity: O(n) (Two single-pass loops).
+Space Complexity: O(1) (Uses only a few extra variables).
+Approach 4: Division Method (Not Allowed) 🚫
+⚠ This approach is not allowed in the problem constraints, but useful to know.
+
+Idea:
+
+Compute the total product of all elements in the array.
+For each element nums[i], compute answer[i] = total_product / nums[i].
+🚨 Problem: This method fails when there are zeroes in the array because division by zero is undefined.
+
+🔢 Code Implementation
+cpp
+Copy
+Edit
+vector<int> productExceptSelf(vector<int>& nums) {
+    int n = nums.size();
+    int total_product = 1;
+    int zero_count = 0;
+
+    // Step 1: Compute total product and count zeroes
+    for (int num : nums) {
+        if (num == 0) zero_count++;
+        else total_product *= num;
+    }
+
+    vector<int> answer(n, 0);
+
+    // Step 2: Handle cases with zero
+    if (zero_count > 1) {
+        return answer;  // If more than 1 zero, all elements in answer will be 0
+    }
+
+    for (int i = 0; i < n; i++) {
+        if (nums[i] == 0) {
+            answer[i] = total_product;  // Only zero element gets total_product
+        } else if (zero_count == 0) {
+            answer[i] = total_product / nums[i];  // Normal division
+        } // Else (zero_count == 1), all other elements remain zero
+    }
+
+    return answer;
+}
+🛠 Complexity Analysis
+Time Complexity: O(n) ✅ (Single loop for product and one for result)
+Space Complexity: O(1) ✅ (Only uses a few extra variables)
+⚠️ Why Is This Approach Not Allowed?
+Division is explicitly prohibited in the problem constraints.
+Fails when multiple zeros exist in the array.
+Precision issues in some languages.
+✅ Instead, we use Prefix & Suffix method to solve it properly. 🚀
+
+Final Notes 📌
+Approach	    Time Complexity	Space Complexity	Notes
+Brute Force	        O(n²)	        O(1)	        Too slow for large inputs 🚫
+Prefix & Suffix Arrays	O(n)	    O(n)    	Uses extra space for prefix & suffix
+Optimized In-Place	    O(n)	    O(1)    	Best approach ✅
+Division Method	O(n)	O(1)	Not allowed in the problem 🚫
+Key Takeaways 💡
+Brute force is too slow (O(n²)).
+Using prefix & suffix arrays improves time to O(n) but uses extra space.
+Best solution uses prefix in answer[] and suffix on the fly to achieve O(n) time and O(1) space.
+Division-based solution is not allowed due to zero constraints.
+
+
+LeetCode 34: Find First and Last Position of Element in Sorted Array
+🔥 Difficulty: Medium
+🔢 Category: Binary Search
+
+📝 Problem Statement
+You are given a sorted array nums and a target value target.
+Find the first and last position of target in nums.
+Return [-1, -1] if target is not found.
+
+Example 1
+cpp
+Copy
+Edit
+Input: nums = [5,7,7,8,8,10], target = 8
+Output: [3,4]
+Example 2
+cpp
+Copy
+Edit
+Input: nums = [5,7,7,8,8,10], target = 6
+Output: [-1,-1]
+Example 3
+cpp
+Copy
+Edit
+Input: nums = [], target = 0
+Output: [-1,-1]
+🔹 Constraints:
+
+0 <= nums.length <= 10^5
+nums is sorted in ascending order.
+O(log n) time complexity required → Binary Search is required!
+💡 Approach 1: Brute Force (O(n)) 🚫
+Idea
+Scan the array from left to right to find the first occurrence.
+Scan the array again to find the last occurrence.
+Code
+cpp
+Copy
+Edit
+vector<int> searchRange(vector<int>& nums, int target) {
+    int first = -1, last = -1;
+    int n = nums.size();
+    
+    // Find first occurrence
+    for (int i = 0; i < n; i++) {
+        if (nums[i] == target) {
+            first = i;
+            break;
+        }
+    }
+    
+    // Find last occurrence
+    for (int i = n - 1; i >= 0; i--) {
+        if (nums[i] == target) {
+            last = i;
+            break;
+        }
+    }
+    
+    return {first, last};
+}
+Complexity Analysis
+Time Complexity: O(n) (Two passes through the array)
+Space Complexity: O(1)
+❌ Not efficient for large n, as it does not use binary search.
+💡 Approach 2: Binary Search Twice (O(log n)) ✅
+Idea
+Use Binary Search to find the first occurrence of target (firstPosition()).
+Use Binary Search to find the last occurrence of target (lastPosition()).
+Steps
+Use modified binary search to find:
+First occurrence: Move right = mid - 1 when nums[mid] == target.
+Last occurrence: Move left = mid + 1 when nums[mid] == target.
+Code
+cpp
+Copy
+Edit
+class Solution {
+public:
+    int firstPosition(vector<int>& nums, int target) {
+        int left = 0, right = nums.size() - 1, first = -1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
+                first = mid;
+                right = mid - 1; // Move left to find first occurrence
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return first;
+    }
+
+    int lastPosition(vector<int>& nums, int target) {
+        int left = 0, right = nums.size() - 1, last = -1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
+                last = mid;
+                left = mid + 1; // Move right to find last occurrence
+            } else if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return last;
+    }
+
+    vector<int> searchRange(vector<int>& nums, int target) {
+        return {firstPosition(nums, target), lastPosition(nums, target)};
+    }
+};
+Complexity Analysis
+Time Complexity: O(log n) + O(log n) = O(log n) ✅
+Space Complexity: O(1) ✅
+💡 Approach 3: Single Binary Search (O(log n)) 🔥
+Instead of running binary search twice, we can use one binary search to find target and then expand left and right.
+
+Code
+cpp
+Copy
+Edit
+vector<int> searchRange(vector<int>& nums, int target) {
+    int left = 0, right = nums.size() - 1;
+    int first = -1, last = -1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (nums[mid] == target) {
+            first = last = mid;
+
+            // Expand left & right to find first and last position
+            while (first > 0 && nums[first - 1] == target) first--;
+            while (last < nums.size() - 1 && nums[last + 1] == target) last++;
+            return {first, last};
+        }
+
+        if (nums[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+
+    return {-1, -1};
+}
+Complexity Analysis
+Best Case: O(log n) (If target is not found)
+Worst Case: O(log n + k) ≈ O(n) (If target occurs k times and we expand)
+🚀 Faster for small k values, but binary search twice is more efficient for large inputs.
+
+🔎 Final Comparison
+Approach	Time Complexity	Space Complexity	Notes
+Brute Force	O(n)	O(1)	❌ Too slow for large inputs
+Binary Search Twice	O(log n)	O(1)	✅ Best method, efficient for large n
+Single Binary Search + Expansion	O(log n) (best) O(n) (worst)	O(1)	🚀 Faster for small k
+✨ Key Takeaways
+Brute force (O(n)) is too slow ❌.
+Best approach is binary search twice (O(log n)) ✅.
+Using a single binary search with expansion is useful for small k 🔥.
