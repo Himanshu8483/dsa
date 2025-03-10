@@ -1178,7 +1178,6 @@ Time Complexity: O(n) (Two single-pass loops).
 Space Complexity: O(1) (Uses only a few extra variables).
 Approach 4: Division Method (Not Allowed) 🚫
 ⚠ This approach is not allowed in the problem constraints, but useful to know.
-
 Idea:
 
 Compute the total product of all elements in the array.

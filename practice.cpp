@@ -1,56 +1,107 @@
-#include <iostream>
-using namespace std;
-#include<stack>
+// // hardcoding of stack 
+// #include <iostream>
+// #include <vector>
+// using namespace std;
 
-bool valid(string s) {
-    stack<char> st;
-    bool r = true;
+// class stacks {
+//     public:
+//     int n, top;
+//     stacks(int s){
+//         n=s;
+//         arr=new int[n];
+//         top=-1;
+//     }
+//     void pushs(int a){
+//         if(top==n-1){
+//             cout<<"overflow\n";
+//             return;
+//         }
+//         top++;
+//         arr[top]=a;
+//     }
+//     int pops(){
+//         if(top==-1){
+//             cout<<"there is no element";
+//             return -1;
+//         }
+//         return arr[top];
+//     }
+// };
+
+// int main(){
+//     int val;
+//     cout<<"enter size\n";
+//     cin>>val;
+//     int c;
+//     stacks st(val);
+//     for(int i=1; i<=val; i++){
+//         cin>>c;
+//         st.pushs(c);
+//         while(st.top!=-1){
+//             cout<<st.tops()<<"\n";
+//             st.pops();
+//         }
+//         cout<<"top value = "<<st.tops()<<"\n";
+//         st.pops();
+//         cout<<"top value = "<<st.tops()<<"\n";
+//     }
+// }
+//     // stacks st(5);
+//     // st.pushs(10);
+//     // st.pushs(4);
+//     // st.pushs(5);
+//     // st.pushs(23);
+//     // st.pushs(89);
     
-    for (int i = 0; i < s.size(); i++) {
-        if (s[i] == '{' || s[i] == '[' || s[i] == '(') {
-            st.push(s[i]); // Push opening brackets to stack
-        }
-        else if (s[i] == '}') {
-            if (!st.empty() && st.top() == '{') {
-                st.pop(); // Correct match, remove from stack
-            } else {
-                r = false;
-                break; // Mismatch found, stop checking
-            }
-        }
-        else if (s[i] == ')') {
-            if (!st.empty() && st.top() == '(') {
-                st.pop();
-            } else {
-                r = false;
-                break;
-            }
-        }
-        else if (s[i] == ']') {
-            if (!st.empty() && st.top() == '[') {
-                st.pop();
-            } else {
-                r = false;
-                break;
-            }
-        }
+#include<iostream>
+using namespace std;
+class stacks{
+    public:
+    int *arr;
+    int n, top;
+    stacks(int s){
+        n=s;
+        arr=new int[n];
+        top=-1;
     }
-
-    // Move return statement outside the loop
-    return st.empty() && r;
-    // or 
-    if(!st.empty()){
-        return false;
+    void pushs(int a){
+        if(top==n-1){
+            cout<<"overflow\n";
+            return;
+        }
+        top++;
+        arr[top]=a;
     }
-    else{
-        return r;
+    int pops(){
+        if(top==-1){
+            cout<<"underflow";
+            return -1;
+        }
+        return top--;
     }
-}
-int main() {
-    string s = "{([])}"; // Input string
-    if (valid(s)) {
-        cout << "valid";
-    } else {
-        cout << "invalid";
+    int tops(){
+        if(top==-1){
+            cout<<"there is no element";
+            return -1;
+        }
+        return arr[top];
     }
+};
+int main(){
+    int val;
+    cout<<"enter size\n";
+    cin>>val;
+    int c;
+    stacks st(val);
+    for(int i=1;i<=val;i++){
+        cin>>c;
+        st.pushs(c);
+    }
+    while(st.top!=-1){
+        cout<<st.tops()<<"\n";
+        st.pops();
+    }
+    cout<<"top value = "<<st.tops()<<"\n";
+    st.pops();
+    cout<<"top value = "<<st.tops()<<"\n";
 }

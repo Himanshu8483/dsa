@@ -824,6 +824,196 @@ int main() {
     }
 }
     
+
+----------------------------------------------------
+// C++ Stack Implementation
+#include <iostream>  
+using namespace std;  
+
+// 🔹 Stack class to implement stack operations  
+class Stack {  
+public:  
+    int *arr;  // Pointer for dynamic array  
+    int n, top;  // Size of stack (n) and top index  
+
+    // 🔹 Constructor to initialize stack with given size  
+    Stack(int s) {  
+        n = s;  
+        arr = new int[n];  // Allocating memory dynamically  
+        top = -1;  // Stack is initially empty  
+    }  
+
+    // 🔹 Destructor to free memory when object is destroyed  
+    ~Stack() {  
+        delete[] arr;  
+    }  
+
+    // 🔹 Push function to insert an element into the stack  
+    void push(int a) {  
+        if (top == n - 1) {  // Check if stack is full  
+            cout << "Stack Overflow\n";  
+            return;  
+        }  
+        top++;
+        arr[top]=a;
+        // or 
+        // arr[++top] = a;  // Move top to next position and insert element  
+    }  
+
+    // 🔹 Pop function to remove and return the top element  
+    int pop() {  
+        if (top == -1) {  // Check if stack is empty  
+            cout << "Stack Underflow\n";  
+            return -1;  
+        }  
+        return arr[top--];  // Return top element and decrement top index  
+    }  
+
+    // 🔹 Peek function to return the top element without removing it  
+    int peek() {  
+        if (top == -1) {  // Check if stack is empty  
+            cout << "Stack is empty\n";  
+            return -1;  
+        }  
+        return arr[top];  // Return top element  
+    }  
+};  
+
+// 🔹 Main function  
+int main() {  
+    int size, value;  
+    cout << "Enter stack size: ";  
+    cin >> size;  
+
+    Stack st(size);  // Creating stack of given size  
+
+    cout << "Enter " << size << " elements to push into the stack:\n";  
+    for (int i = 0; i < size; i++) {  
+        cin >> value;  
+        st.push(value);  
+    }  
+
+    // 🔹 Printing stack elements (LIFO Order)  
+    cout << "Stack elements (Top to Bottom):\n";  
+    while (st.peek() != -1) {  // Loop until stack is empty  
+        cout << st.peek() << "\n";  
+        st.pop();  
+    }  
+
+    // 🔹 Checking top value after popping all elements  
+    cout << "Top value after popping everything: " << st.peek() << "\n";  
+    st.pop();  // Trying to pop from an empty stack  
+    cout << "Top value after another pop attempt: " << st.peek() << "\n";  
+
+    // 🔹 Testing with hardcoded values  
+    cout << "\nTesting with hardcoded values:\n";  
+    Stack st2(5);  // Creating a stack of size 5  
+
+    st2.push(10);  
+    st2.push(4);  
+    st2.push(5);  
+    st2.push(23);  
+    st2.push(89);  
+
+    cout << "Top element before popping: " << st2.peek() << "\n";  
+
+    while (st2.peek() != -1) {  // Print and pop all elements  
+        cout << "Popped: " << st2.pop() << "\n";  
+    }  
+
+    return 0;  
+}  
+
+
+/*
+📌 Understanding the Logic Behind the Stack Implementation
+A stack is a LIFO (Last In, First Out) data structure, meaning the last element added is the first one to be removed.
+
+📌 How the Code Works?
+Class Definition (Stack)
+
+Uses dynamic memory allocation (new int[n]) to create a stack of size n.
+Keeps track of the top index (top), which starts at -1 (empty stack).
+Push Operation (push(int a))
+
+If the stack is full (top == n-1), print "Stack Overflow".
+Otherwise, increment top (top++) and insert the new value at arr[top].
+Pop Operation (pop())
+
+If the stack is empty (top == -1), print "Stack Underflow".
+Otherwise, return arr[top] (top element), then decrement top (top--).
+Peek Operation (peek())
+
+If the stack is empty (top == -1), print "Stack is empty" and return -1.
+Otherwise, return arr[top] (top element) without removing it.
+Destructor (~Stack())
+
+Frees the allocated memory (delete[] arr) when the object is destroyed.
+📌 Key Stack Operations
+1️⃣ Pushing Elements (Insertion)
+✅ Logic: Move top up and store the new element at arr[top].
+📌 When delete[] arr is called: 
+    // 1️⃣ Finds the memory block allocated for arr.
+    // 2️⃣ Frees all elements in the array.
+    // 3️⃣ Releases the entire block, making memory available for reuse.
+📌 Summary
+✅ delete[] arr deletes the entire dynamically allocated array, not just one element.
+✅ The [] tells the compiler to delete all elements, preventing memory leaks.
+✅ Always use delete[] for arrays and delete for single objects.
+less
+Copy
+Edit
+Stack before push:
+[ 10, 4, 5, 23, __ ]   (top = 3)
+Push(89)
+Stack after push:
+[ 10, 4, 5, 23, 89 ]   (top = 4)
+2️⃣ Popping Elements (Removal)
+✅ Logic: Return the top element, then move top down.
+
+less
+Copy
+Edit
+Stack before pop:
+[ 10, 4, 5, 23, 89 ]   (top = 4)
+Pop()
+Stack after pop:
+[ 10, 4, 5, 23, __ ]   (top = 3)
+3️⃣ Peeking the Top Element (View without Removal)
+✅ Logic: Just return arr[top] without modifying anything.
+
+4️⃣ Checking Underflow Condition
+✅ Logic: If top == -1, the stack is empty and nothing can be removed.
+
+📌 Flow of Execution
+Example Input
+arduino
+Copy
+Edit
+Enter stack size: 5
+Enter 5 elements: 10 4 5 23 89
+Execution Steps
+1️⃣ Push 10 → Stack: [10]
+2️⃣ Push 4 → Stack: [10, 4]
+3️⃣ Push 5 → Stack: [10, 4, 5]
+4️⃣ Push 23 → Stack: [10, 4, 5, 23]
+5️⃣ Push 89 → Stack: [10, 4, 5, 23, 89]
+6️⃣ Pop → Output: 89 → Stack: [10, 4, 5, 23]
+7️⃣ Pop → Output: 23 → Stack: [10, 4, 5]
+8️⃣ Pop → Output: 5 → Stack: [10, 4]
+9️⃣ Pop → Output: 4 → Stack: [10]
+🔟 Pop → Output: 10 → Stack is now empty []
+
+📌 Key Takeaways
+Stack follows LIFO (Last In, First Out).
+push() adds elements at the top.
+pop() removes the top element.
+peek() returns the top element without removing it.
+Stack Overflow occurs when it's full.
+Stack Underflow occurs when it's empty.
+This logic ensures efficient O(1) (constant time) operations for push, pop, and peek. 🚀
+*/
+----------------------------------------------------
 Understanding #include <bits/stdc++.h> in C++
 What is #include <bits/stdc++.h>?
 •	It is a single header file that includes all standard C++ libraries (like iostream, vector, map, algorithm, etc.).
