@@ -1060,3 +1060,239 @@ When to Use #include <bits/stdc++.h>?
 ✔️ Use it in Competitive Programming (fast coding, not worried about memory).
 ❌ Avoid it in Real-World Projects (wastes memory and slows down compilation).
 
+----------------------------------------------------------------------
+Notes on forward_list in C++
+1. What is forward_list?
+•	forward_list is a singly linked list in C++ STL.
+•	It allows only forward traversal (unlike list, which is doubly linked).
+•	Useful in Directed Graph representations and when memory efficiency is needed.
+________________________________________
+2. Key Features
+1.	Singly Linked List – Elements are linked in one direction.
+2.	Memory Efficient – Stores only a single pointer per node (less overhead than list).
+3.	Fast Insertion/Deletion at the Front – O(1) complexity.
+4.	No Random Access – Cannot access elements via index (unlike vector or array).
+________________________________________
+3. Basic Operations and Examples
+Function	Purpose
+push_front(x)	Inserts x at the front
+pop_front()	Removes the first element
+sort()	Sorts the elements in ascending order
+unique()	Removes consecutive duplicate elements (List must be sorted first)
+merge(f2)	Merges two sorted forward_lists
+remove(x)	Removes all occurrences of x
+splice_after(pos, fl2)	Moves elements from fl2 after pos in fl1
+________________________________________
+4. Code Explanation
+cpp
+CopyEdit
+#include <iostream>
+#include <forward_list>
+using namespace std;
+int main() {
+    // forward_list<int> f{3, 3, 3, 56};  // Initializing forward_list
+// or 
+    forward_list<int> f;	// Initializing forward_list
+    f.push_front(3);
+    f.push_front(3);
+    f.push_front(3);
+    f.push_front(56);
+    // Display the list
+    cout << "\nList before sorting and removing duplicates:\n";
+    for (auto p : f) cout << p << "\t";
+
+    // Sorting and removing duplicates
+    f.sort();
+    f.unique();
+
+    cout << "\nList after sorting and removing duplicates:\n";
+    for (auto p : f) cout << p << "\t";
+
+    // Declaring and initializing two forward_lists
+    forward_list<int> f1{50, 3, 1, 2, 5};
+    forward_list<int> f2{4, 30, 70, 32, 1, 3};
+
+    cout << "\n\nf1 List:\n";
+    for (auto p : f1) cout << p << "\t";
+
+    cout << "\n\nf2 List:\n";
+    for (auto p : f2) cout << p << "\t";
+
+    // Merging two sorted lists
+    f1.sort();
+    f2.sort();
+    f1.merge(f2);
+    cout << "\n\nMerged List:\n";
+    for (auto p : f1) cout << p << "\t";
+
+    // Removing a specific element
+    f1.remove(3);
+    cout << "\n\nList after removing 3:\n";
+    for (auto p : f1) cout << p << "\t";
+
+    return 0;
+}
+Output:
+List before sorting and removing duplicates:
+56      3       3       3
+List after sorting and removing duplicates:
+3       56
+f1 List:
+50      3       1       2       5
+f2 List:
+4       30      70      32      1       3
+Merged List:
+1       1       2       3       3       4       5       30      32      50      70
+List after removing 3:
+1       1       2       4       5       30      32      50      70
+________________________________________
+5. Complexity Analysis
+Operation	Time Complexity
+push_front(x)	O(1)
+pop_front()	O(1)
+sort()	O(n log n)
+unique()	O(n)
+merge(f2)	O(n + m) (n = size of f1, m = size of f2)
+remove(x)	O(n)
+splice_after()	O(1)
+________________________________________
+6. When to Use forward_list?
+✅ Use forward_list when:
+•	Memory efficiency is a priority.
+•	You need fast insertion/deletion at the front.
+•	You don't need backward traversal.
+❌ Avoid forward_list when:
+•	You need random access (use vector instead).
+•	You frequently insert/delete elements in the middle (use list instead).
+________________________________________
+Final Takeaways
+1.	forward_list is best for memory-efficient linked structures.
+2.	Use sort() before unique() to remove all duplicates.
+3.	Always sort lists before merge().
+4.	Prefer forward_list over list when backward traversal isn’t needed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+Notes on list (Doubly Linked List) in C++ STL
+1. What is list in C++?
+•	list in C++ STL is a Doubly Linked List.
+•	Each node contains two pointers (next & previous).
+•	Allows bi-directional traversal (both forward & backward).
+•	Useful for Undirected Graphs, managing large datasets with frequent insertions/deletions.
+________________________________________
+2. Key Features
+1.	Doubly Linked List – Each node points to the next and previous nodes.
+2.	Fast Insertions & Deletions – O(1) at any position (unlike vector which is O(n) for middle insertions).
+3.	No Random Access – Cannot access elements using an index (unlike vector or array).
+4.	Supports Forward & Backward Traversal – Unlike forward_list, which only supports forward traversal.
+________________________________________
+3. Basic Operations and Examples
+Function	Purpose
+push_front(x)	Inserts x at the front
+push_back(x)	Inserts x at the back
+pop_front()	Removes the first element
+pop_back()	Removes the last element
+insert(pos, x)	Inserts x at pos
+erase(pos)	Removes element at pos
+remove(x)	Removes all occurrences of x
+sort()	Sorts the list in ascending order
+unique()	Removes consecutive duplicate elements
+merge(l2)	Merges two sorted lists
+reverse()	Reverses the order of the list
+________________________________________
+4. Code Explanation
+cpp
+CopyEdit
+#include <iostream>
+#include <list>
+using namespace std;
+
+int main() {
+    list<int> l = {5, 1, 3, 3, 2, 8};
+
+    // Display the list
+    cout << "Original List:\n";
+    for (auto p : l) cout << p << "\t";
+
+    // Sorting the list
+    l.sort();
+
+    // Removing consecutive duplicates
+    l.unique();
+
+    cout << "\nSorted List (Duplicates Removed):\n";
+    for (auto p : l) cout << p << "\t";
+
+    // Reversing the list
+    l.reverse();
+    cout << "\nReversed List:\n";
+    for (auto p : l) cout << p << "\t";
+
+    // Pushing & popping elements
+    l.push_front(10);
+    l.push_back(20);
+    cout << "\nList after push operations:\n";
+    for (auto p : l) cout << p << "\t";
+
+    l.pop_front();
+    l.pop_back();
+    cout << "\nList after pop operations:\n";
+    for (auto p : l) cout << p << "\t";
+
+    // Merging two lists
+    list<int> l1 = {1, 3, 5};
+    list<int> l2 = {2, 4, 6};
+
+    l1.merge(l2);  // Both lists should be sorted before merging
+
+    cout << "\nMerged List:\n";
+    for (auto p : l1) cout << p << "\t";
+
+    return 0;
+}
+________________________________________
+5. Comparison: list vs. forward_list
+Feature	list (Doubly Linked)	forward_list (Singly Linked)
+Traversal	Forward & backward	Only forward
+Memory Usage	More (stores two pointers per node)	Less (stores one pointer per node)
+Insertion/Deletion	O(1) at any position	O(1) at the front
+Access by Index	Not possible	Not possible
+Suitable For	Frequent insertions/deletions anywhere	Memory efficiency, fast front insertions
+________________________________________
+6. Complexity Analysis
+Operation	Time Complexity
+push_front(x)	O(1)
+push_back(x)	O(1)
+pop_front()	O(1)
+pop_back()	O(1)
+insert(pos, x)	O(1) (if iterator is given)
+erase(pos)	O(1)
+remove(x)	O(n)
+sort()	O(n log n)
+merge(l2)	O(n + m)
+reverse()	O(n)
+________________________________________
+7. When to Use list?
+✅ Use list when:
+•	Frequent insertions/deletions anywhere in the list are needed.
+•	Bi-directional traversal is required.
+•	Memory overhead is not a concern.
+❌ Avoid list when:
+•	You need random access (use vector).
+•	You only need forward traversal (use forward_list).
+________________________________________
+Final Takeaways
+1.	list is best for frequent insertions & deletions anywhere in the list.
+2.	Use sort() before unique() to remove all duplicates.
+3.	Prefer list over forward_list if backward traversal is required.
+4.	Merging requires sorted lists.

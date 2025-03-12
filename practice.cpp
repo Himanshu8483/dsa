@@ -1,107 +1,46 @@
-// // hardcoding of stack 
-// #include <iostream>
-// #include <vector>
-// using namespace std;
-
-// class stacks {
-//     public:
-//     int n, top;
-//     stacks(int s){
-//         n=s;
-//         arr=new int[n];
-//         top=-1;
-//     }
-//     void pushs(int a){
-//         if(top==n-1){
-//             cout<<"overflow\n";
-//             return;
-//         }
-//         top++;
-//         arr[top]=a;
-//     }
-//     int pops(){
-//         if(top==-1){
-//             cout<<"there is no element";
-//             return -1;
-//         }
-//         return arr[top];
-//     }
-// };
-
-// int main(){
-//     int val;
-//     cout<<"enter size\n";
-//     cin>>val;
-//     int c;
-//     stacks st(val);
-//     for(int i=1; i<=val; i++){
-//         cin>>c;
-//         st.pushs(c);
-//         while(st.top!=-1){
-//             cout<<st.tops()<<"\n";
-//             st.pops();
-//         }
-//         cout<<"top value = "<<st.tops()<<"\n";
-//         st.pops();
-//         cout<<"top value = "<<st.tops()<<"\n";
-//     }
-// }
-//     // stacks st(5);
-//     // st.pushs(10);
-//     // st.pushs(4);
-//     // st.pushs(5);
-//     // st.pushs(23);
-//     // st.pushs(89);
-    
-#include<iostream>
+// Forward List (singly link list) use in Directed Graph
+// list (doubly link list) use in Undirected Graph
+// it has so many inbuilt function 
+// for unique value must sort an array to remove duplicate 
+#include <iostream>
 using namespace std;
-class stacks{
-    public:
-    int *arr;
-    int n, top;
-    stacks(int s){
-        n=s;
-        arr=new int[n];
-        top=-1;
-    }
-    void pushs(int a){
-        if(top==n-1){
-            cout<<"overflow\n";
-            return;
-        }
-        top++;
-        arr[top]=a;
-    }
-    int pops(){
-        if(top==-1){
-            cout<<"underflow";
-            return -1;
-        }
-        return top--;
-    }
-    int tops(){
-        if(top==-1){
-            cout<<"there is no element";
-            return -1;
-        }
-        return arr[top];
-    }
-};
+#include <forward_list>
+
 int main(){
-    int val;
-    cout<<"enter size\n";
-    cin>>val;
-    int c;
-    stacks st(val);
-    for(int i=1;i<=val;i++){
-        cin>>c;
-        st.pushs(c);
+    forward_list<int>f;     // or {3,9,1,4,5};
+    f.push_front(3);
+    f.push_front(3);
+    f.push_front(3);
+    f.push_front(56);
+    cout<<"\n list \n";
+    for(auto p: f){
+        cout<<p<<"\t";
     }
-    while(st.top!=-1){
-        cout<<st.tops()<<"\n";
-        st.pops();
+    // f.pop_front();       // for delete
+    f.sort();           // for sorting
+    f.unique();         // for unique (remove duplicate)
+cout<<"\nafter delete \n";
+    for(auto p: f){
+        cout<<p<<"\t";
     }
-    cout<<"top value = "<<st.tops()<<"\n";
-    st.pops();
-    cout<<"top value = "<<st.tops()<<"\n";
+    cout<<"\n f1 list\n";
+    forward_list<int>f1{50,3,1,2,5};
+    forward_list<int>f2{4,30,70,32,1,3};
+    for(auto p: f1){
+        cout<<p<<"\t";
+    }
+    cout<<"\n f2 list\n";
+    for(auto p: f2){
+        cout<<p<<"\t";
+    }
+    cout<<"\nmerge\n";
+    f1.sort();
+    f2.sort();
+    f1.merge(f2);
+
+    for(auto p: f1){
+        cout<<p<<"\t";
+    }
+
+    return 0;
 }
