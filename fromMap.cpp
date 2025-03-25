@@ -73,3 +73,354 @@ int main() {
 
     return 0;
 }
+
+Understanding C++ Map with Examples
+1. What is a Map?
+A map in C++ is a container that stores key-value pairs.
+Keys are unique.
+Values are stored using a key for quick access.
+Implemented using a Red-Black Tree (Self-balancing Binary Search Tree).
+Code Explanation
+1. Declaration and Initialization
+cpp
+Copy code
+map<int, string> mp;
+map<int, string> → Stores an integer as a key (e.g., Roll Number) and a string as a value (e.g., Name).
+mp → Map variable.
+2. Inserting Data
+cpp
+Copy code
+mp.insert({roll, name});
+insert() → Inserts key-value pairs into the map.
+{roll, name} → Roll number as key, name as value.
+3. Searching Data
+cpp
+Copy code
+auto t = mp.find(102);
+find() → Searches for a key.
+auto → Automatically determines the iterator type.
+cpp
+Copy code
+if (t != mp.end()) {
+    cout << t->first << ":" << t->second;
+}
+else {
+    cout << "Not found";
+}
+mp.end() → Represents a pointer to past the last element.
+If key is found → Prints t->first (key) and t->second (value).
+If key is not found → Prints "Not found".
+4. Deleting Data
+cpp
+Copy code
+mp.erase(103);
+erase() → Removes key-value pair using the key.
+If key does not exist, nothing happens.
+5. Displaying Data
+cpp
+Copy code
+for (auto p : mp) {
+    cout << p.first << ":" << p.second << "\n";
+}
+auto p → Extracts each key-value pair.
+p.first → Key (Roll number).
+p.second → Value (Name).
+Key Notes to Remember
+Dot (.) and Arrow (->) Operators
+
+Dot (.) → Used with objects like map when accessing directly.
+Arrow (->) → Used with pointers or iterators like auto t = mp.find().
+Map Behavior
+
+If the key exists, find() returns an iterator pointing to the element.
+If the key does not exist, find() returns mp.end().
+
+// Code: 
+// Program to demonstrate map in C++ with insertion, search, deletion, and display
+#include <iostream>
+#include <map>
+using namespace std;
+
+int main() {
+    map<int, string> mp; // Declare a map with int keys and string values
+    int roll, n;
+    string name;
+
+    // Taking input for map entries
+    cout << "Enter number of records: ";
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        cout << "Enter roll number: ";
+        cin >> roll;
+        cout << "Enter name: ";
+        cin >> name;
+        mp.insert({roll, name}); // Insert into map using key-value pair
+    }
+
+    // Search for a specific roll number using find()
+    int searchRoll = 102;
+    auto it = mp.find(searchRoll);
+  // or 
+  //       auto it=mp.find(102);
+    if (it != mp.end()) {
+        cout << "\nFound: " << it->first << ": " << it->second;
+    } else {
+        cout << "\nRoll number " << searchRoll << " not found.";
+    }
+
+    // Delete record with roll number 103
+    mp.erase(103);
+    cout << "\nRecord with roll number 103 deleted (if existed).";
+
+    // Display all records
+    cout << "\n\nAll Records:\n";
+    for (auto &p : mp) {
+        cout << p.first << ": " << p.second << "\n";
+    }
+
+    return 0;
+}
+
+This code covers:
+
+Insertion using insert()
+Search using find()
+Deletion using erase()
+Display using a for loop
+
+Note: 
+calling erase() on a non-existent key will not give an error.
+Explanation-> You can safely call erase() without checking if the key exists.
+
+Roman to Integer Conversion (Simple Approach)
+Problem: Convert a Roman numeral (e.g., "IX") to its integer form.
+
+Roman Numerals and Values
+Symbol	Value
+I	1
+V	5
+X	10
+L	50
+C	100
+D	500
+M	1000
+Approach
+Use a map<char, int> to store Roman symbols and their values.
+Traverse the string from left to right.
+If the current symbol is smaller than the next symbol, subtract it.
+Example: IV = 5 - 1 = 4
+Otherwise, add the current symbol's value.
+Simple Code for Roman to Integer Conversion
+cpp
+Copy code
+#include <iostream>
+#include <map>
+using namespace std;
+
+int romanToInt(string s) {
+    map<char, int> roman = {{'I', 1}, {'V', 5}, {'X', 10}, {'L', 50},
+                              {'C', 100}, {'D', 500}, {'M', 1000}};
+    int result = 0;
+
+    for (int i = 0; i < s.length(); i++) {
+        if (i < s.length() - 1 && roman[s[i]] < roman[s[i + 1]]) {
+            result -= roman[s[i]];
+        } else {
+            result += roman[s[i]];
+        }
+    }
+    return result;
+}
+
+int main() {
+    string romanNumber;
+    cout << "Enter Roman Numeral: ";
+    cin >> romanNumber;
+    cout << "Integer Value: " << romanToInt(romanNumber);
+    return 0;
+}
+Explanation
+"IX" → I is smaller than X, so subtract: 10 - 1 = 9
+"LVIII" → 50 + 5 + 3 = 58
+"MCMXCIV" → 1000 + 900 + 90 + 4 = 1994
+
+push_front(x)   O(1)
+push_back(x)    O(1)
+pop_front() O(1)
+pop_back()  O(1)
+insert(pos, x)  O(1) (if iterator is given)
+erase(pos)  O(1)
+remove(x)   O(n)
+sort()  O(n log n)
+merge(l2)   O(n + m)
+reverse()   O(n)
+
+
+
+Unordered Map and Multimap in C++
+Unordered Map
+•	Definition: Similar to map, but the elements are stored in an unordered manner using hashing.
+•	Header File: #include <unordered_map>
+•	Key Points: 
+o	Time Complexity: O(1) for insertion, deletion, and search due to hashing.
+o	No duplicate keys allowed.
+o	Does not support complex data types like pair because of the lack of a hashing function.
+•	Example:
+#include <iostream>
+#include <unordered_map>
+#include <list>
+using namespace std;
+
+int main() {
+    unordered_map<int, string> up;
+    up.insert({103, "Jatin"});
+    up.insert({101, "Vijay"});
+    up.insert({102, "Himanshu"});
+
+    // Display the elements (unordered)
+    cout << "Unordered Map Data:" << endl;
+    for (auto p : up) {
+        cout << p.first << ", " << p.second << "\n";
+    }
+
+    // Perform list operations
+    list<int> lst = {103, 101, 102};
+    lst.push_front(100);
+    lst.push_back(104);
+    cout << "After push_front and push_back:" << endl;
+    for (auto i : lst) cout << i << " ";
+    cout << endl;
+
+    lst.pop_front();
+    lst.pop_back();
+    cout << "After pop_front and pop_back:" << endl;
+    for (auto i : lst) cout << i << " ";
+    cout << endl;
+
+    auto it = lst.begin();
+    advance(it, 1);
+    lst.insert(it, 105);
+    cout << "After insert at position 1:" << endl;
+    for (auto i : lst) cout << i << " ";
+    cout << endl;
+
+    lst.erase(it);
+    cout << "After erase at position 1:" << endl;
+    for (auto i : lst) cout << i << " ";
+    cout << endl;
+
+    lst.remove(102);
+    cout << "After remove value 102:" << endl;
+    for (auto i : lst) cout << i << " ";
+    cout << endl;
+
+    lst.sort();
+    cout << "After sort:" << endl;
+    for (auto i : lst) cout << i << " ";
+    cout << endl;
+
+    lst.reverse();
+    cout << "After reverse:" << endl;
+    for (auto i : lst) cout << i << " ";
+    cout << endl;
+}________________________________________
+Map vs Unordered Map
+Feature	                Map	                   Unordered Map
+Header File	        #include <map>	        #include <unordered_map>
+Implementation	Implemented using Red-Black Tree	Implemented using Hash Table
+Speed   	Slower compared to unordered_map	Faster due to hashing
+Time Complexity	    for insertion, deletion, search	    for insertion, deletion, search on average, in worst case
+Ordering	    Stores elements in sorted order by key	    Stores elements in unordered form
+________________________________________
+
+Multimap
+•	Definition: Allows duplicate keys, unlike map or unordered_map.
+•	Header File: #include <map>
+•	Key Points: 
+o	Time Complexity: O(log n) for insertion, deletion, and search due to the use of balanced trees.
+o	Supports multiple values for the same key.
+•	Example:
+#include <iostream>
+#include <map>
+using namespace std;
+
+int main() {
+    multimap<int, string> mp;
+    mp.insert({103, "Jatin"});
+    mp.insert({101, "Vijay"});
+    mp.insert({102, "Himanshu"});
+    mp.insert({102, "Himanshu"});
+
+    // Display all elements
+    cout << "Initial Data:" << endl;
+    for (auto p : mp) {
+        cout << p.first << ", " << p.second << "\n";
+    }
+
+    // Delete first found using iterator
+    auto t = mp.find(102);
+    if (t != mp.end()) {
+        mp.erase(t);
+    }
+    cout << "After Deleting First Matched Entry:" << endl;
+    for (auto p : mp) {
+        cout << p.first << ", " << p.second << "\n";
+    }
+
+    // Delete all entries with key 102
+    mp.erase(102);
+    cout << "After Deleting All Entries with Key 102:" << endl;
+    for (auto p : mp) {
+        cout << p.first << ", " << p.second << "\n";
+    }
+}
+________________________________________
+Two Sum Problem
+Problem: Find indices of two numbers in the array such that they add up to the target sum.
+•	Example: 
+•	Input: a = [1, 0, 5, 2, 4]
+•	Target Sum: 6
+•	Output: Indices: (2, 4)
+Approach Using Unordered Map
+•	Store elements in an unordered_map with the value as key and index as value.
+•	For each element, calculate the complement (target - element).
+•	Check if the complement exists in the map.
+Code:
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+using namespace std;
+
+vector<int> twoSum(vector<int>& nums, int target) {
+    unordered_map<int, int> umap; // Store value and index
+
+    for (int i = 0; i < nums.size(); i++) {
+        int complement = target - nums[i];
+        
+        // Check if complement exists in map
+        if (umap.find(complement) != umap.end()) {
+            return {umap[complement], i};
+        }
+        umap[nums[i]] = i;
+    }
+    return {}; // Return empty if no solution
+}
+
+int main() {
+    vector<int> a = {1, 0, 5, 2, 4};
+    int target = 6;
+
+    vector<int> result = twoSum(a, target);
+    if (!result.empty()) {
+        cout << "Indices: (" << result[0] << ", " << result[1] << ")\n";
+    } else {
+        cout << "No valid pair found\n";
+    }
+}
+Explanation:
+1.	unordered_map provides O(1)O(1) time complexity for searching and inserting.
+2.	Complement of each element is checked.
+3.	If complement is found, return both indices.
+4.	Efficient for large datasets.
+________________________________________
+These notes provide a clear understanding of unordered_map, multimap, and how to solve the two-sum problem using an efficient hashing-based approach. 
