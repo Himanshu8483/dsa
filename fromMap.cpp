@@ -581,3 +581,73 @@ int main() {
 ---
 This version is simplified for better understanding and revision. Let me know if you'd like further adjustments!
 
+
+
+### Self-Balancing Tree (Basic Concept)
+A **Self-Balancing Binary Search Tree (BST)** is a binary tree that maintains a balanced structure to ensure operations like insertion, deletion, and search are efficient.
+
+### Node Class Definition
+```cpp
+class Node {
+public:
+    int data;
+    Node* left;
+    Node* right;
+
+    // Constructor
+    Node(int d) {
+        data = d;
+        left = nullptr;
+        right = nullptr;
+        // left = NULL;     // Used by Vikash Sir
+    }
+};
+```
+- `Node* left` and `Node* right` are pointers to the left and right child nodes.
+- `nullptr` is used instead of `null` for pointer initialization in C++.
+
+### Creating a Tree and Initializing Nodes
+```cpp
+#include<iostream>
+using namespace std;
+
+int main() {
+    // Creating root node
+    Node* root = new Node(10);
+
+    // Inserting nodes
+    root->left = new Node(20);
+    root->right = new Node(30);
+
+    cout << "Root Node: " << root->data << endl;
+    cout << "Left Child: " << root->left->data << endl;
+    cout << "Right Child: " << root->right->data << endl;
+
+    cout << "Preorder: ";
+    cout << root->data << " ";
+    cout << root->left->data << " ";
+    cout << root->right->data << endl;
+
+    cout << "Inorder: ";
+    cout << root->left->data << " ";
+    cout << root->data << " ";
+    cout << root->right->data << endl;
+
+    cout << "Postorder: ";
+    cout << root->left->data << " ";
+    cout << root->right->data << " ";
+    cout << root->data << endl;
+
+    return 0;
+}
+```
+- `root->left` accesses the left child using the arrow operator (`->`) since `root` is a pointer.
+- Similarly, `root->right` accesses the right child.
+
+### Explanation
+- **Preorder**: Visit the root, then the left subtree, and finally the right subtree.
+- **Inorder**: Visit the left subtree, then the root, and then the right subtree.
+- **Postorder**: Visit the left subtree, then the right subtree, and finally the root.
+
+This simplified version should help you revise and understand the concept of self-balancing trees and basic operations on them.
+
