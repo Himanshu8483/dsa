@@ -424,3 +424,160 @@ Explanation:
 4.	Efficient for large datasets.
 ________________________________________
 These notes provide a clear understanding of unordered_map, multimap, and how to solve the two-sum problem using an efficient hashing-based approach. 
+
+
+
+# C++ Sets and Multisets
+
+### **1. Set**
+- **Definition:** A set is an ordered, unique collection of elements.
+- **Data Structure Used:** Red-Black Tree (Balanced Binary Search Tree)
+- **Properties:**
+  - Stores unique values
+  - Maintains ascending order
+  - Insertion, deletion, and search - **O(log n)**
+- **Use Case:** Ideal for storing sorted data without duplicates.
+
+#### **Example:**
+```cpp
+#include<iostream>
+#include<set>
+using namespace std;
+
+int main(){
+    set<int> s{10, 20, 1, 2, 6};
+    for (auto p : s) cout << p << "\t";
+
+    cout << endl;
+    s.insert(35);
+    for (auto p : s) cout << p << "\t";
+
+    s.erase(20);
+    cout << "\n";
+
+    auto t = s.find(2);
+    if (t != s.end()) cout << "Found = " << *t;
+    else cout << "Not found";
+}
+```
+
+---
+
+### **2. Unordered Set**
+- **Definition:** A set with no specific order.
+- **Data Structure Used:** Hash Table
+- **Properties:**
+  - Stores unique values
+  - Provides faster insertion, deletion, and search - **O(1)** on average
+  - Not sorted
+- **Use Case:** Best for quick look-ups without order requirements.
+
+#### **Example:**
+```cpp
+#include<iostream>
+#include<unordered_set>
+using namespace std;
+
+int main(){
+    unordered_set<int> s{10, 20, 1, 2, 6};
+    for (auto p : s) cout << p << "\t";
+
+    cout << endl;
+    s.insert(35);
+    for (auto p : s) cout << p << "\t";
+
+    s.erase(20);
+    cout << "\n";
+
+    auto t = s.find(2);
+    if (t != s.end()) cout << "Found = " << *t;
+    else cout << "Not found";
+}
+```
+
+---
+
+### **3. Multiset**
+- **Definition:** A multiset allows duplicate values and maintains order.
+- **Data Structure Used:** Red-Black Tree
+- **Properties:**
+  - Stores duplicate values
+  - Maintains ascending order
+  - Insertion, deletion, and search - **O(log n)**
+- **Use Case:** Best for frequency counting or scenarios where duplicates are allowed.
+
+#### **Example:**
+```cpp
+#include<iostream>
+#include<set>
+using namespace std;
+
+int main(){
+    multiset<int> s{10, 10, 20, 1, 2, 6};
+    for (auto p : s) cout << p << "\t";
+
+    cout << endl;
+    s.insert(35);
+    for (auto p : s) cout << p << "\t";
+
+    s.erase(20);
+    cout << "\n";
+
+    auto t = s.find(2);
+    if (t != s.end()) cout << "Found = " << *t;
+    else cout << "Not found";
+
+    cout << "\nAfter delete\n";
+    auto p = s.find(10);
+    if (p != s.end()) s.erase(p); // Deletes only one occurrence
+
+    for (auto p : s) cout << p << "\t";
+}
+```
+
+---
+
+## **Pangram Check in C++**
+- **Definition:** A Pangram is a sentence that contains every letter of the alphabet at least once.
+- **Example:** "The quick brown fox jumps over the lazy dog"
+
+### **Approach:**
+- Use a set to store unique lowercase letters.
+- If the size of the set becomes **26**, it is a Pangram.
+
+#### **Example Code:**
+```cpp
+#include<iostream>
+#include<set>
+#include<algorithm>
+using namespace std;
+
+bool isPangram(string s) {
+    set<char> letters;
+    transform(s.begin(), s.end(), s.begin(), ::tolower); // Convert to lowercase
+    
+    for (char ch : s) {
+        if (isalpha(ch)) letters.insert(ch); // Only insert alphabets
+    }
+    return letters.size() == 26;
+}
+
+int main() {
+    string s = "The quick brown fox jumps over the lazy dog";
+    if (isPangram(s)) cout << "It is a pangram";
+    else cout << "Not a pangram";
+}
+```
+
+---
+
+## **Summary**
+| Type          | Unique Values | Sorted | Allows Duplicates | Time Complexity (Insert/Delete/Search) |
+|----------------|---------------|--------|--------------------|----------------------------------------|
+| Set            | Yes           | Yes    | No                 | O(log n)                               |
+| Unordered Set  | Yes           | No     | No                 | O(1) on average                       |
+| Multiset       | No            | Yes    | Yes                | O(log n)                               |
+
+---
+This version is simplified for better understanding and revision. Let me know if you'd like further adjustments!
+
