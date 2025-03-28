@@ -546,29 +546,106 @@ int main(){
 - If the size of the set becomes **26**, it is a Pangram.
 
 #### **Example Code:**
-```cpp
-#include<iostream>
-#include<set>
-#include<algorithm>
+#include <iostream>
+#include <map>
 using namespace std;
 
-bool isPangram(string s) {
-    set<char> letters;
-    transform(s.begin(), s.end(), s.begin(), ::tolower); // Convert to lowercase
-    
-    for (char ch : s) {
-        if (isalpha(ch)) letters.insert(ch); // Only insert alphabets
+// Function to check if a string is a pangram using map (Method 1)
+bool isPangramUsingMap1(const string &s) {
+    map<char, bool> alpha; // Map to track presence of each alphabet
+
+    for (int i = 0; i < s.length(); i++) {
+        char ch = s[i];
+
+        // Convert to lowercase for uniformity
+        if (isalpha(ch)) {
+            alpha[tolower(ch)] = true; // Mark alphabet as seen
+        }
     }
-    return letters.size() == 26;
+
+    // Check if all 26 letters are present
+    return (alpha.size() == 26);
+}
+
+
+// Function to check if a string is a pangram using map (Method 2)
+bool isPangramUsingMap2(const string &s) {
+    map<char, bool> alpha;
+
+    for (int i = 0; i < s.length(); i++) {
+        char ch = s[i];
+        if (ch >= 'A' && ch <= 'Z') {
+            ch = ch + ('a' - 'A'); // Convert to lowercase without using tolower
+        }
+        if (ch >= 'a' && ch <= 'z') {
+            alpha[ch] = true;
+        }
+    }
+    return (alpha.size() == 26);
+}
+
+#include <set>
+
+// Function to check if a string is a pangram using set
+bool isPangramUsingSet(const string &s) {
+    set<char> uniqueChars; // Using set to store unique characters
+
+    for (int i = 0; i < s.length(); i++) {
+        char ch = tolower(s[i]); // Convert to lowercase
+
+        // Check if the character is an alphabet
+        if (ch >= 'a' && ch <= 'z') {
+            uniqueChars.insert(ch);
+        }
+    }
+
+    return uniqueChars.size() == 26;
 }
 
 int main() {
     string s = "The quick brown fox jumps over the lazy dog";
-    if (isPangram(s)) cout << "It is a pangram";
-    else cout << "Not a pangram";
-}
-```
 
+    // Using Map method 1
+    if (isPangramUsingMap1(s)) {
+        cout << "It is a Pangram String using Map Method 1." << endl;
+    } else {
+        cout << "It is not a Pangram String using Map Method 1." << endl;
+    }
+
+    // Using Map method 2
+    if (isPangramUsingMap2(s)) {
+        cout << "It is a Pangram String using Map Method 2." << endl;
+    } else {
+        cout << "It is not a Pangram String using Map Method 2." << endl;
+    }
+
+    // Using Set method
+    if (isPangramUsingSet(s)) {
+        cout << "It is a Pangram String using Set." << endl;
+    } else {
+        cout << "It is not a Pangram String using Set." << endl;
+    }
+}
+Output:
+It is a Pangram String using Map Method 1.
+It is a Pangram String using Map Method 2.
+It is a Pangram String using Set.
+
+---
+✅ Why Use const? (not used by Vikash Sir)
+Prevents Modification:
+const ensures that the function will not accidentally modify the original string.
+Improves Code Clarity:
+It indicates that the input is only for reading, not writing.
+
+Efficient for Large Strings:
+Using & (reference) prevents making a copy of the string, saving memory and improving performance.
+
+Avoids Unintended Side Effects:
+Protects the input from changes, which is essential in functions like these.
+🚀 When Can You Skip const?
+If the string is small and performance isn’t a concern.
+If the function is designed to modify the string intentionally.
 ---
 
 ## **Summary**
