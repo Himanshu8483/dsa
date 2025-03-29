@@ -1,3 +1,95 @@
+Sample Paper of DSA
+
+Q.1 Swapping two numbers,factorial,max value between two and many more function program using template function .
+Q.2 Simple Calculator like +,-,* & / Using Class Template.
+Q.3 Class Templates With Multiple Parameters.
+Q.4 Check the given string is palindrome or not.
+Q.5 Find min value using stack.
+Q.6 Display values of stack in reverse order.
+Q.7 Valid Parenthesis.
+Q.8 Print unique strings in lexicography order with their frequency:
+Example 1:
+ Input: a=[“pen”,”copy”,”pen”,”copy”,”eraser”]
+Output:copy=2,eraser=1,pen=2
+
+Input: a=[“mon”,”tue”,”mon”,”sun”]
+Output:mon=2,sun=1,tue=1
+
+
+
+Q.9 Two pair Sum
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+You can return the answer in any order.
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+
+Q.10  Find missing numbers
+Input s1={1,2,3,5,6,8}
+Output={4, 7}  
+
+
+Q.11  Find Maximum depth of binary tree?
+
+Given the root of a binary tree, return its maximum depth.
+A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+ 
+Q.12  Count the leaf node?
+
+Q.13 Write a program for all three traversing order of tree?
+
+Q.14  Write a program to sum of two array. 
+Input: A1 = [2, 3, 1, 4]   &  A2= [6] 
+Output: 2320
+Input: A1 = [2, 3, 1, 4]   & A2=[2,3] 
+Output: 2337
+
+Q.15  Write a C++ program to separate even and odd numbers in a array of integers. Put all even numbers first, and then odd numbers.
+ Input: 14,21,6,7,8,3,9
+ Output:14,6,8,21,7,3,9
+
+Q.16 Write a C++ program to sort a given array of 0s, 1s and 2s. In the final array put all 0s first, then all 1s and all 2s last. 
+Input:0,1,0,1,0,2,1,2 
+Output:0,0,0,1,1,1,2,2
+
+Q.17 Given a sorted array of n elements, find the number of occurrences of each element.
+Input: arr = [4, 4, 8, 8, 8, 15, 16, 23, 23, 53]
+Output: 4=2
+               8=3
+              15=1
+              23=2
+              53=1
+
+Q.18  Delete the specific position from an array.
+Input: arr = [9,3,2,1,5,23,10,4],position=3
+Output: [9,3,2,5,23,10,4]
+
+Q.19 Find Array is Subset of Another Array
+
+Q.20 Check if two Array are equal or not.
+
+Q.21 Given   String is anagram or not.
+
+Q.22  Isomorphic String:
+Given two strings s and t, determine if they are isomorphic.
+Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
+ Example 1:
+Input: s = "egg", t = "add"
+Output: true
+Example 2:
+Input: s = "gun", t = "bar"
+Output: false
+
+
+Q.23  Convert Roman to Integer.
+
+Q.24 Convert Integer to Roman.
+
+Q.25 Create Binary tree.
+-----------------------------------------------------------------------------------
+Solution:
+
 // Q.1 Swapping, Factorial, Max using Template Function
 #include<iostream>
 using namespace std;
@@ -168,7 +260,6 @@ int main() {
     return 0;
 }
 
-
 // Q.9 Two Pair Sum
 #include<vector>
 #include<unordered_map>
@@ -192,7 +283,6 @@ int main() {
     cout << "Output: [" << result[0] << ", " << result[1] << "]" << endl;
     return 0;
 }
-
 
 // Q.10 Find Missing Numbers
 #include<vector>
@@ -748,3 +838,4 @@ int main() {
 
     return 0;
 }
+------------------------------------------------------------------ 
