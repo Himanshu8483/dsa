@@ -150,8 +150,13 @@ class Pair {
 public:
     T1 first;
     T2 second;
-    Pair(T1 a, T2 b) : first(a), second(b) {}
-    void display() { cout << first << ", " << second << endl; }
+    Pair(T1 a, T2 b){
+        first = a;
+        second = b;
+    }
+    void display() { 
+        cout << first << ", " << second << endl; 
+    }
 };
 
 int main() {
@@ -211,25 +216,30 @@ int main() {
 // Stack in Reverse: 30 20 10
 
 // Q.7 Valid Parenthesis
-#include<stack>
-bool isValidParenthesis(string s) {
-    stack<char> st;
-    for (char c : s) {
-        if (c == '(' || c == '{' || c == '[') st.push(c);
-        else {
-            if (st.empty()) return false;
-            char top = st.top();
-            if ((c == ')' && top == '(') ||
-                (c == '}' && top == '{') ||
-                (c == ']' && top == '[')) st.pop();
-            else return false;
+#include <stack>         
+
+bool isValid(string s) {
+    stack<char> st; 
+
+    for (char ch : s) 
+        if (ch == '(' || ch == '{' || ch == '[') {
+            st.push(ch); 
+        } else {  
+            if (st.empty()) return false;  // No matching opening bracket
+            
+            // Directly check if the top element is matching
+            if ((ch == ')' && st.top() != '(') || 
+                (ch == '}' && st.top() != '{') || 
+                (ch == ']' && st.top() != '[')) {
+                return false;
+            }
+            st.pop(); 
         }
-    }
-    return st.empty();
+    return st.empty(); 
 }
 
 int main() {
-    cout << "Valid Parenthesis: " << (isValidParenthesis("{[()]}") ? "Yes" : "No") << endl;
+    cout << "Valid Parenthesis: " << (isValid("{[()]}") ? "Yes" : "No") << endl;
     return 0;
 }
 
@@ -283,6 +293,18 @@ int main() {
     cout << "Output: [" << result[0] << ", " << result[1] << "]" << endl;
     return 0;
 }
+// Example Walkthrough:
+// nums = [2, 7, 11, 15], target = 9
+
+// 1. i = 0 → nums[0] = 2
+//    complement = 9 - 2 = 7
+//    numMap = {}
+//    Not found. Store → {2: 0}
+
+// 2. i = 1 → nums[1] = 7
+//    complement = 9 - 7 = 2
+//    numMap = {2: 0}
+//    Found! Return {0, 1}
 
 // Q.10 Find Missing Numbers
 #include<vector>
@@ -305,12 +327,10 @@ vector<int> findMissingNumbers(vector<int>& s1) {
 int main() {
     vector<int> s1 = {1,2,3,5,6,8};
     vector<int> result = findMissingNumbers(s1);
-    cout << "Output: {";
+    cout << "Output: ";
     for (int i = 0; i < result.size(); i++) {
-        cout << result[i];
-        if (i != result.size() - 1) cout << ", ";
+        cout << result[i]<<"\t";
     }
-    cout << "}" << endl;
     return 0;
 }
 
@@ -323,51 +343,77 @@ The depth of a tree is 1 + max(left_depth, right_depth).
 #include<iostream>
 using namespace std;
 
-struct TreeNode {
-    int val;
-    TreeNode* left;
-    TreeNode* right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+class Node {
+public:
+    int data;
+    Node* left;
+    Node* right;
+
+    // Constructor to initialize node with value
+    Node(int val) {
+        data = val;
+        left = NULL;
+        right = NULL;
+    }
 };
 
-int maxDepth(TreeNode* root) {
+int maxDepth(Node* root) {
     if (root == NULL) return 0;
     return 1 + max(maxDepth(root->left), maxDepth(root->right));
 }
 
 int main() {
-    TreeNode* root = new TreeNode(3);
-    root->left = new TreeNode(9);
-    root->right = new TreeNode(20);
-    root->right->left = new TreeNode(15);
-    root->right->right = new TreeNode(7);
+    Node* root = new Node(3);
+    root->left = new Node(9);
+    root->right = new Node(20);
+    root->right->left = new Node(15);
+    root->right->right = new Node(7);
 
     cout << "Maximum Depth: " << maxDepth(root) << endl;
     return 0;
 }
+
 Output:
 
 Maximum Depth: 3
 
-// Q.10 Count the Leaf Nodes
+// Q.12 Count the Leaf Nodes
 A leaf node is a node that has no children (both left and right pointers are NULL).
 
-int countLeafNodes(TreeNode* root) {
+#include<iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* left;
+    Node* right;
+
+    // Constructor to initialize node with value
+    Node(int val) {
+        data = val;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+int countLeafNodes(Node* root) {
     if (root == NULL) return 0;
     if (root->left == NULL && root->right == NULL) return 1;
     return countLeafNodes(root->left) + countLeafNodes(root->right);
 }
 
 int main() {
-    TreeNode* root = new TreeNode(3);
-    root->left = new TreeNode(9);
-    root->right = new TreeNode(20);
-    root->right->left = new TreeNode(15);
-    root->right->right = new TreeNode(7);
+    Node* root = new Node(3);
+    root->left = new Node(9);
+    root->right = new Node(20);
+    root->right->left = new Node(15);
+    root->right->right = new Node(7);
 
     cout << "Number of Leaf Nodes: " << countLeafNodes(root) << endl;
     return 0;
 }
+
 Output:
 
 Number of Leaf Nodes: 3
@@ -441,7 +487,7 @@ int sumArrays(vector<int>& a1, vector<int>& a2) {
     for (int n : a2) num2 = num2 * 10 + n;
     return num1 + num2;
 }
-
+    
 int main() {
     vector<int> A1 = {2, 3, 1, 4};
     vector<int> A2 = {6};
