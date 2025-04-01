@@ -529,33 +529,73 @@ int main() {
 // Q.16 Sort 0s, 1s, and 2s
 #include<iostream>
 #include<vector>
+#include<algorithm> // For the sort() function
 using namespace std;
 
 void sort012(vector<int>& arr) {
-    int low = 0, mid = 0, high = arr.size() - 1;
-    while (mid <= high) {
-        switch (arr[mid]) {
-            case 0:
-                swap(arr[low++], arr[mid++]);
-                break;
-            case 1:
-                mid++;
-                break;
-            case 2:
-                swap(arr[mid], arr[high--]);
-                break;
-        }
+    sort(arr.begin(), arr.end());
+}
+
+int main() {
+    vector<int> arr = {0, 1, 0, 1, 0, 2, 1, 2};
+    sort012(arr);
+
+    // Output the sorted array
+    for (int num : arr) {
+        cout << num << " ";
+    }
+
+    return 0;
+}
+// or 
+#include<iostream>
+#include<vector>
+using namespace std;
+
+void sort012(vector<int>& arr) {
+    int count0 = 0, count1 = 0, count2 = 0;
+
+    // Count occurrences of 0, 1, and 2
+    for (int i = 0; i < arr.size(); i++) {
+        if (arr[i] == 0) count0++;
+        else if (arr[i] == 1) count1++;
+        else if (arr[i] == 2) count2++;
+    }
+
+    // Rebuild the array based on the counts
+    int index = 0;
+    
+    // Fill with 0's
+    while (count0 > 0) {
+        arr[index++] = 0;
+        count0--;
+    }
+    
+    // Fill with 1's
+    while (count1 > 0) {
+        arr[index++] = 1;
+        count1--;
+    }
+    
+    // Fill with 2's
+    while (count2 > 0) {
+        arr[index++] = 2;
+        count2--;
     }
 }
 
 int main() {
     vector<int> arr = {0, 1, 0, 1, 0, 2, 1, 2};
     sort012(arr);
+
+    // Output the sorted array
     for (int num : arr) {
         cout << num << " ";
     }
+
     return 0;
 }
+
 
 // Q.17 Find Number of Occurrences of Each Element
 #include<iostream>
@@ -701,15 +741,16 @@ using namespace std;
 
 bool isIsomorphic(string s, string t) {
     if (s.length() != t.length()) return false;
-    unordered_map<char, char> mapST, mapTS;
     
+    unordered_map<char, char> mapST;  // Map from characters of s to t
     for (int i = 0; i < s.length(); i++) {
-        char ch1 = s[i], ch2 = t[i];
-        if ((mapST.count(ch1) && mapST[ch1] != ch2) || (mapTS.count(ch2) && mapTS[ch2] != ch1)) {
-            return false;
+        if (mapST.find(s[i]) != mapST.end()) {
+            if (mapST[s[i]] != t[i]) {
+                return false;
+            }
+        } else {
+            mapST[s[i]] = t[i];
         }
-        mapST[ch1] = ch2;
-        mapTS[ch2] = ch1;
     }
     return true;
 }
