@@ -197,7 +197,6 @@ Worst case: O(n²) (when sorted in reverse).
 Stable: ✅ (keeps order of duplicates).
 In-Place: ✅ (modifies the array directly).
 
-
 Code:
 */
 void insertionSort(int arr[], int n) {
@@ -378,7 +377,7 @@ void printArray(int arr[], int n) {
 }
 
 int main() {
-    // // Dynamic Input :
+    // Dynamic Input :
     int n;
     // cout<<"Enter Size of Array";
     // cin>>n;
@@ -424,7 +423,7 @@ int main() {
 📌 Summary Table
 ---------------
 | Algorithm      | Best Case  | Avg Case  | Worst Case | Space  | Approach          | Stable | In-Place | Type  |
-|--------------|----------|---------|----------|-------|----------------|-------|---------|------|
+|--------------|----------|---------|----------|-------|----------------|-------|---------|---------/
 | Bubble Sort  | O(n)     | O(n²)   | O(n²)    | O(1)  | Subtraction (Swapping)    | ✅    | ✅       | Element-Based |
 | Insertion Sort | O(n)    | O(n²)   | O(n²)    | O(1)  | Subtraction (Shifting)   | ✅    | ✅       | Element-Based |
 | Selection Sort | O(n²)   | O(n²)   | O(n²)    | O(1)  | Subtraction (Swapping)    | ❌    | ✅       | Element-Based |
