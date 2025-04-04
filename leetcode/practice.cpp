@@ -1,23 +1,31 @@
-
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <unordered_map>
+#include <vector>
 using namespace std;
 
-int sumArrays(vector<int>& a1, vector<int>& a2) {
-    long long num1 = 0, num2 = 0;
-    for (int n : a1) num1 = num1 * 10 + n;
-    for (int n : a2) num2 = num2 * 10 + n;
-    return num1 + num2;
+vector<int> twoSum(vector<int>& nums, int target) {
+    unordered_map<int, int> umap; // Store value and index
+
+    for (int i = 0; i < nums.size(); i++) {
+        int complement = target - nums[i];
+        
+        // Check if complement exists in map
+        if (umap.find(complement) != umap.end()) {
+            return {umap[complement], i};
+        }
+        umap[nums[i]] = i;
+    }
+    return {}; // Return empty if no solution
 }
 
 int main() {
-    vector<int> A1 = {2, 3, 1, 4};
-    vector<int> A2 = {6};
-    cout << "Sum: " << sumArrays(A1, A2) << endl;
+    vector<int> a = {1, 0, 5, 2, 4};
+    int target = 6;
 
-    vector<int> B1 = {2, 3, 1, 4};
-    vector<int> B2 = {2, 3};
-    cout << "Sum: " << sumArrays(B1, B2) << endl;
-    
-    return 0;
+    vector<int> result = twoSum(a, target);
+    if (!result.empty()) {
+        cout << "Indices: (" << result[0] << ", " << result[1] << ")\n";
+    } else {
+        cout << "No valid pair found\n";
+    }
 }
