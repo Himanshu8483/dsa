@@ -85,13 +85,12 @@ int main() {
     return 0;
 }
 
-
 // Class Template for Factorial Calculation
 #include <iostream>
 using namespace std;
 
 /*
-This template class calculates the factorial of a number using recursion.
+This template of class calculates the factorial of a number using recursion.
 */
 
 template <typename NumberType>
